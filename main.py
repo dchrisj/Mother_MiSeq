@@ -34,13 +34,13 @@ def wrap():
         commands = ['mothur', '"#count.seqs(name=stability.trim.contigs.good.names, group=stability.contigs.good.groups)"']
         run_cmd(commands)
 
-    
-
     def pipeline():
         create_stability()
         make_contigs()
         summary_seqs()
         screen_seqs()
+        unique_seqs()
+        count_seqs()
 
     pipeline()
 
