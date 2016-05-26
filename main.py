@@ -34,6 +34,26 @@ def wrap():
         commands = ['mothur', '"#count.seqs(name=stability.trim.contigs.good.names, group=stability.contigs.good.groups)"']
         run_cmd(commands)
 
+    def summary_seqs_count():
+        commands = ['mothur', '"#summary.seqs(fasta=stability.trim.contigs.good.unique.fasta, count=stability.trim.contigs.good.count_table)"']
+        run_cmd(commands)
+
+    def pcr_seqs():
+        commands = ['mothur', '"#pcr.seqs(fasta=silva.bacteria.fasta, start=11894, end=25319, keepdots=F, processors=8)"']
+        run_cmd(commands)
+
+    def system():
+        commands = ['mothur', '"#system(mv silva.bacteria.pcr.fasta silva.v4.fasta)"']
+        run_cmd(commands)
+
+    def align():
+        commands = ['mothur', '"#align.seqs(fasta=stability.trim.contigs.good.unique.fasta, reference=silva.v4.fasta)"']
+        run_cmd(commands)
+
+    def summary_seqs_align():
+        commands = ['mothur', '"#summary.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table)"']
+        run_cmd(commands)
+
     def pipeline():
         create_stability()
         make_contigs()
@@ -41,6 +61,12 @@ def wrap():
         screen_seqs()
         unique_seqs()
         count_seqs()
+        summary_seqs_count()
+        pcr_seqs()
+        system()
+        align()
+        summary_seqs_align()
+         
 
     pipeline()
 
