@@ -35,10 +35,10 @@ def get_fastq_files():
             fq_files.append(f)
     return fq_files
 
-def get_fastq_abbr(fq_files):
+def get_fastq_abbr(fq_file):
     fastq_abbr = ""
     st = [".", "_", "/", "-"]
-    prefix_idx = min(fq_files.find(i) for i in st if i in fq_file)
+    prefix_idx = min(fq_file.find(i) for i in st if i in fq_file)
     fastq_abbr = (fq_file[0:prefix_idx])
     return fastq_abbr
 
@@ -46,7 +46,8 @@ def stab_file_triplet():
     fq_files = get_fastq_files()
     cost = sys.maxint
     best_match = ""
-    visited = res = []
+    visited = []
+    res = []
     for fq_file in fq_files:
         curr = fq_file
         if curr not in visited:
@@ -67,12 +68,9 @@ def stab_file_triplet():
 
 def create_stab_file():
         with open("stability.files", "w") as fp:
-            fq_triplet = stability_file_triplet()
+            fq_triplet = stab_file_triplet()
             for triplet in fq_triplet:
                 for attr in triplet:
-                    fp.write(attr, + "\t")
+                    fp.write(attr + "\t")
                 fp.write("\n")
         fp.close()
-
-if __name__ == "__main__":
-    pass
