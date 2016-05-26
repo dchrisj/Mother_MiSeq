@@ -23,9 +23,18 @@ def wrap():
     def screen_seqs():
         records = parse_summary("stability.trim.contigs.summary")
         ambigs, nbases = summary_stats(records)
-        print "HERE" + str(ambigs) + ' ' + str(nbases)
         commands = ['mothur', '"#screen.seqs(fasta=stability.trim.contigs.fasta, group=stability.contigs.groups, maxambig=' + str(ambigs) + ', maxlength=' + str(nbases) + ')"']
         run_cmd(commands)
+
+    def unique_seqs():
+        commands = ['mothur', '"#unique.seqs(fasta=stability.trim.contigs.good.fasta)"']
+        run_cmd(commands)
+
+    def count_seqs():
+        commands = ['mothur', '"#count.seqs(name=stability.trim.contigs.good.names, group=stability.contigs.good.groups)"']
+        run_cmd(commands)
+
+    
 
     def pipeline():
         create_stability()
